@@ -1,223 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yi Jiong Portfolio</title>
-  <style>
-    /* 顶部导航 */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      position: fixed;
-      width: 100%;
-      background: rgba(255,255,255,0.8);
-      z-index: 100;
-    }
-    .nav-left {
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-    .nav-right .category-btn {
-      border: none;       /* 取消边框 */
-      outline: none;
-      background: transparent;
-      cursor: pointer;
-      margin-left: 10px;
-      font-size: 1em;
-    }
-
-    /* 视频区域 */
-    #video-section {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-    }
-    #video-section video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: filter 0.5s ease;
-    }
-    #video-section.video-blur video {
-      filter: blur(8px);
-    }
-    #unmute-btn {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      padding: 8px 12px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-
-    /* 个人简介 */
-    #intro-section {
-      display: flex;
-      padding: 50px;
-      background: #fff;
-    }
-    .intro-photo img {
-      width: 300px;
-    }
-    .intro-text {
-      margin-left: 20px;
-    }
-
-    /* 分类分界面 */
-    .category-section {
-      padding: 50px;
-      background: #f8f8f8;
-    }
-    .category-photo {
-      width: 100%;
-      height: 200px;
-      background: #ccc;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .details img {
-      width: 100px;
-      display: block;
-      margin-bottom: 10px;
-    }
-    .details div {
-      margin-bottom: 20px;
-    }
-    .hobby img {
-      width: 200px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yi Jiong Portfolio</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+    background: #fff;
+  }
+  /* 顶部导航 */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px; /* 导航右侧稍微往左偏移 */
+    background: rgba(255,255,255,0.9);
+    z-index: 10;
+  }
+  header .logo {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  nav button {
+    background: none;
+    border: none;
+    margin-left: 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  /* 视频区域 */
+  #video-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.2s;
+  }
+  #unmute-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5;
+    padding: 8px 12px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 5px;
+  }
+  /* 个人简介 */
+  #about {
+    display: flex;
+    align-items: center;
+    padding: 80px 40px;
+    min-height: 100vh;
+  }
+  #about img {
+    width: 300px;
+    height: auto;
+    margin-right: 40px;
+  }
+  #about .description {
+    max-width: 600px;
+  }
+  /* 分类按钮与照片 */
+  .section {
+    padding: 60px 40px;
+    min-height: 100vh;
+  }
+  .section h2 {
+    margin-bottom: 20px;
+  }
+  .section button {
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    cursor: pointer;
+    background: #eee;
+    border: none;
+    border-radius: 5px;
+  }
+  .section img {
+    width: 200px;
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+  }
+  /* 详细内容 */
+  .details {
+    display: none;
+    margin-top: 20px;
+  }
+  .details.active {
+    display: block;
+  }
+</style>
 </head>
 <body>
-  <!-- 顶部导航 -->
-  <header>
-    <div class="nav-left">Yi Jiong</div>
-    <nav class="nav-right">
-      <button class="category-btn" data-target="education">Education</button>
-      <button class="category-btn" data-target="work">Work</button>
-      <button class="category-btn" data-target="hobbies">Hobbies</button>
-    </nav>
-  </header>
 
-  <!-- 视频区域 -->
-  <section id="video-section">
-    <video src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" autoplay muted loop></video>
-    <button id="unmute-btn">Unmute</button>
-  </section>
+<header>
+  <div class="logo">Yi Jiong</div>
+  <nav>
+    <button onclick="scrollToSection('education')">Education</button>
+    <button onclick="scrollToSection('work')">Work</button>
+    <button onclick="scrollToSection('hobbies')">Hobbies</button>
+  </nav>
+</header>
 
-  <!-- 个人简介 -->
-  <section id="intro-section">
-    <div class="intro-photo">
-      <img src="portrait.jpg" alt="Yi Jiong">
-    </div>
-    <div class="intro-text">
-      <h2>About Me</h2>
-      <p>Your personal introduction goes here...</p>
-    </div>
-  </section>
+<section id="video-section">
+  <video id="bg-video" autoplay muted loop>
+    <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <button id="unmute-btn" onclick="toggleMute()">Unmute</button>
+</section>
 
-  <!-- 教育分界面 -->
-  <section id="education" class="category-section">
-    <h2>Education</h2>
-    <div class="category-photo" data-target="education">Click photo for details</div>
-    <div class="details">
-      <div class="school">
-        <img src="school1-logo.png" alt="School 1">
-        <p>School 1 description...</p>
-      </div>
-      <div class="school">
-        <img src="school2-logo.png" alt="School 2">
-        <p>School 2 description...</p>
-      </div>
-      <div class="school">
-        <img src="school3-logo.png" alt="School 3">
-        <p>School 3 description...</p>
-      </div>
-    </div>
-  </section>
+<section id="about">
+  <img src="your-photo.jpg" alt="Portrait">
+  <div class="description">
+    <h1>About Me</h1>
+    <p>This is my personal introduction. Add your description here.</p>
+  </div>
+</section>
 
-  <!-- 工作分界面 -->
-  <section id="work" class="category-section">
-    <h2>Work</h2>
-    <div class="category-photo" data-target="work">Click photo for details</div>
-    <div class="details">
-      <div class="company">
-        <img src="company1-logo.png" alt="Company 1">
-        <p>Company 1 description...</p>
-      </div>
-      <div class="company">
-        <img src="company2-logo.png" alt="Company 2">
-        <p>Company 2 description...</p>
-      </div>
-      <div class="company">
-        <img src="company3-logo.png" alt="Company 3">
-        <p>Company 3 description...</p>
-      </div>
-    </div>
-  </section>
+<section id="education" class="section">
+  <h2>Education</h2>
+  <button onclick="toggleDetails('edu-details')">More Info</button>
+  <div>
+    <img src="school1.jpg" onclick="toggleDetails('edu-details')">
+    <img src="school2.jpg" onclick="toggleDetails('edu-details')">
+    <img src="school3.jpg" onclick="toggleDetails('edu-details')">
+  </div>
+  <div id="edu-details" class="details">
+    <p>School 1: Description...</p>
+    <p>School 2: Description...</p>
+    <p>School 3: Description...</p>
+  </div>
+</section>
 
-  <!-- 爱好分界面 -->
-  <section id="hobbies" class="category-section">
-    <h2>Hobbies</h2>
-    <div class="category-photo" data-target="hobbies">Click photo for details</div>
-    <div class="details">
-      <div class="hobby"><img src="hobby1.jpg" alt=""><p>Description 1</p></div>
-      <div class="hobby"><img src="hobby2.jpg" alt=""><p>Description 2</p></div>
-      <div class="hobby"><img src="hobby3.jpg" alt=""><p>Description 3</p></div>
-      <div class="hobby"><img src="hobby4.jpg" alt=""><p>Description 4</p></div>
-      <div class="hobby"><img src="hobby5.jpg" alt=""><p>Description 5</p></div>
-    </div>
-  </section>
+<section id="work" class="section">
+  <h2>Work</h2>
+  <button onclick="toggleDetails('work-details')">More Info</button>
+  <div>
+    <img src="company1.jpg" onclick="toggleDetails('work-details')">
+    <img src="company2.jpg" onclick="toggleDetails('work-details')">
+    <img src="company3.jpg" onclick="toggleDetails('work-details')">
+  </div>
+  <div id="work-details" class="details">
+    <p>Company 1: Description...</p>
+    <p>Company 2: Description...</p>
+    <p>Company 3: Description...</p>
+  </div>
+</section>
 
-  <script>
-    // 视频滚动模糊
-    const videoSection = document.getElementById('video-section');
-    window.addEventListener('scroll', () => {
-      const sectionTop = videoSection.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      if (sectionTop < windowHeight) {
-        videoSection.classList.add('video-blur');
-      } else {
-        videoSection.classList.remove('video-blur');
-      }
-    });
+<section id="hobbies" class="section">
+  <h2>Hobbies</h2>
+  <button onclick="toggleDetails('hobby-details')">More Info</button>
+  <div>
+    <img src="hobby1.jpg" onclick="toggleDetails('hobby-details')">
+    <img src="hobby2.jpg" onclick="toggleDetails('hobby-details')">
+    <img src="hobby3.jpg" onclick="toggleDetails('hobby-details')">
+    <img src="hobby4.jpg" onclick="toggleDetails('hobby-details')">
+    <img src="hobby5.jpg" onclick="toggleDetails('hobby-details')">
+  </div>
+  <div id="hobby-details" class="details">
+    <p>Hobby 1: Description...</p>
+    <p>Hobby 2: Description...</p>
+    <p>Hobby 3: Description...</p>
+    <p>Hobby 4: Description...</p>
+    <p>Hobby 5: Description...</p>
+  </div>
+</section>
 
-    // 分类按钮点击跳转
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    categoryButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = document.getElementById(btn.dataset.target);
-        target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
+<script>
+  // Unmute button
+  function toggleMute() {
+    const video = document.getElementById('bg-video');
+    video.muted = !video.muted;
+  }
 
-    // 照片点击跳转
-    const categoryPhotos = document.querySelectorAll('.category-photo');
-    categoryPhotos.forEach(photo => {
-      photo.addEventListener('click', () => {
-        const target = document.getElementById(photo.dataset.target);
-        target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
+  // Scroll blur effect
+  const video = document.getElementById('bg-video');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const maxBlur = 8; // max blur in px
+    const vh = window.innerHeight;
+    if(scrollY <= vh) {
+      const blurValue = (scrollY / vh) * maxBlur;
+      video.style.filter = `blur(${blurValue}px)`;
+    } else {
+      video.style.filter = `blur(8px)`;
+    }
+  });
 
-    // 解除静音
-    const video = videoSection.querySelector('video');
-    const unmuteBtn = document.getElementById('unmute-btn');
-    unmuteBtn.addEventListener('click', () => {
-      video.muted = !video.muted;
-      unmuteBtn.textContent = video.muted ? "Unmute" : "Mute";
-    });
-  </script>
+  // Scroll to section
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  // Toggle details
+  function toggleDetails(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('active');
+  }
+</script>
+
 </body>
 </html>
