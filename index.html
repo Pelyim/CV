@@ -1,201 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>我的个人资料｜Portfolio</title>
-  <meta name="description" content="个人在线资料：教育、工作经历、技能、爱好" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
   <style>
-    /* ===== 基础样式 ===== */
-    :root{
-      --bg:#0b0b0c; --fg:#f6f7fb; --muted:#9aa1ac; --accent:#7dd3fc; --card:#121317;
-      --nav:rgba(12,12,14,.6);
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Noto Sans,Arial; color:var(--fg); background:var(--bg)}
-
-    /* ===== 顶部导航 ===== */
-    header{position:fixed; inset:0 0 auto 0; backdrop-filter: blur(8px); background:var(--nav); z-index:1000; border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav{max-width:1100px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:16px}
-    .brand{font-weight:700; letter-spacing:.3px}
-    .nav a{color:var(--fg); text-decoration:none; opacity:.85; padding:8px 10px; border-radius:12px}
-    .nav a:hover{opacity:1; background:rgba(255,255,255,.06)}
-    .nav a.active{background:rgba(125,211,252,.15); outline:1px solid rgba(125,211,252,.35)}
-    .spacer{flex:1}
-
-    /* ===== 全屏视频区 ===== */
-    #video-section{position:relative; height:100svh; min-height:480px; isolation:isolate}
-    #introVideo{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-    /* 暗角与渐变过渡，提升可读性 */
-    #video-section::after{content:''; position:absolute; inset:0; background:radial-gradient(120% 70% at 50% 30%, rgba(0,0,0,.15), rgba(0,0,0,.55) 60%, rgba(0,0,0,.8)); pointer-events:none}
-
-    .hero-overlay{position:relative; z-index:2; height:100%; display:grid; place-items:center; text-align:center; padding:0 20px}
-    .hero-title{font-size:clamp(28px,4.5vw,56px); font-weight:800; letter-spacing:.5px}
-    .hero-sub{color:var(--muted); margin-top:6px}
-
-    .scroll-down{position:absolute; z-index:2; left:50%; bottom:18px; transform:translateX(-50%); font-size:14px; color:#e8f6ff; opacity:.9; animation:bounce 1.6s infinite; letter-spacing:.4px}
-    @keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-8px)}}
-
-    /* ===== 信息区通用 ===== */
-    section[id]{scroll-margin-top:76px}
-    .section{max-width:1100px; margin:0 auto; padding:70px 16px}
-    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:28px; box-shadow:0 10px 30px rgba(0,0,0,.25)}
-
-    .grid{display:grid; grid-template-columns:1.1fr 1fr; gap:22px}
-    @media (max-width:900px){ .grid{grid-template-columns:1fr;}}
-
-    h2{font-size:clamp(22px,2.8vw,32px); margin:0 0 8px}
-    p{margin:0 0 10px}
-    .muted{color:var(--muted)}
-
-    .img-box{aspect-ratio:16/10; width:100%; border-radius:16px; overflow:hidden; background:#0e0f13; display:grid; place-items:center; border:1px dashed rgba(255,255,255,.18)}
-    .img-box img{width:100%; height:100%; object-fit:cover}
-    .hint{font-size:13px; color:var(--muted)}
-
-    /* 进场动画 */
-    .reveal{opacity:0; transform:translateY(14px); transition:all .6s ease}
-    .reveal.show{opacity:1; transform:none}
+    section {
+      min-height: 100vh;
+      padding: 60px;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .mute-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      text-align: center;
+      z-index: 5;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .section-title {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .detail-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
-  <!-- ===== 顶部固定导航（点击可跳分类） ===== -->
-  <header>
-    <nav class="nav">
-      <div class="brand">Brief of ME｜Profile</div>
-      <div class="spacer"></div>
-      <a href="#education">Education</a>
-      <a href="#work">Career</a>
-      <a href="#skills">Skills</a>
-      <a href="#hobbies">Others</a>
-    </nav>
-  </header>
 
-  <!-- ===== 全屏视频：自动播放 + 静音；滚出视口后暂停 ===== -->
-  <section id="video-section">
-    <!-- STEP 1：替换下面视频文件路径为你的文件（建议放到 /assets/your-video.mp4） -->
-    <video id="introVideo" playsinline autoplay muted loop preload="metadata">
-      <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4" 
-    </video>
-    <div class="hero-overlay">
-      <div>
-        <!-- STEP 2：替换主标题与副标题文字 -->
-        <div class="hero-title">Heyyy, It's Yi Jiong</div>
-        <div class="hero-sub">Geophysicist • Marketer • Director • Tenor</div>
-      </div>
-    </div>
-    <div class="scroll-down">↓ Roll down for more</div>
+  <!-- Background video -->
+  <video id="bgVideo" autoplay muted playsinline>
+    <source src="assets/video.mp4" type="video/mp4">
+  </video>
+
+  <!-- Mute/Unmute Button -->
+  <button id="muteBtn" class="mute-btn">Unmute</button>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#education">Education</a>
+    <a href="#work">Work</a>
+    <a href="#skills">Skills</a>
+    <a href="#hobbies">Hobbies</a>
+  </nav>
+
+  <!-- Education Section -->
+  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <p>Brief overview of my education background.</p>
+    <a href="education.html" class="detail-btn">See More</a>
   </section>
 
-  <!-- ===== 教育 ===== -->
-  <section id="education" class="section">
-    <div class="card grid reveal">
-      <div>
-        <h2>Education</h2>
-        <!-- STEP 3：替换你的教育经历文字 -->
-        <p><strong>KIT - Geophysics / </strong>（2025–Future）</p>
-        <p class="muted">Seismology, Seismic Data Processing, InSAR……</p>
-        <p class="hint">提示：右侧预留图片位，上传你的校园/证书/课堂照片。</p>
-      </div>
-      <div>
-        <div class="img-box">
-          <!-- STEP 4：上传图片至 /images/education.jpg 并替换路径 -->
-          <img src="assets/GPI1.JPG" alt="GPI 2025 Family" />
-        </div>
-      </div>
-    </div>
+  <!-- Work Section -->
+  <section id="work">
+    <h2 class="section-title">Work Experience</h2>
+    <p>Summary of my professional experience.</p>
+    <a href="work.html" class="detail-btn">See More</a>
   </section>
 
-  <!-- ===== 工作经历 ===== -->
-  <section id="work" class="section">
-    <div class="card grid reveal">
-      <div>
-        <h2>工作经历 Work Experience</h2>
-        <!-- STEP 5：替换你的工作经历文字 -->
-        <p><strong>Geophysical Engineer - Guangdong Environmental Protection Institute </strong>（2023–2025）</p>
-        <p class="muted">Resevoir Modeling / Utility Locating / Lifecycle Assessment：带数字与影响力的描述更好。</p>
-      </div>
-      <div>
-        <div class="img-box">
-          <!-- STEP 6：上传图片至 /images/work.jpg 并替换路径 -->
-          <img src="assets/LV2.JPG" alt="Work photo" />
-        </div>
-      </div>
-    </div>
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <p>List of my professional skills.</p>
   </section>
 
-  <!-- ===== 技能 ===== -->
-  <section id="skills" class="section">
-    <div class="card grid reveal">
-      <div>
-        <h2>技能 Skills</h2>
-        <!-- STEP 7：替换你的技能清单 -->
-        <p>语言：中文 / English / Deutsch</p>
-        <p>技术：Seismic processing | Python | MATLAB | HTML/CSS/JS | GIS </p>
-        <p>工具：Git | Adobe Audio| Excel | PowerPoint |FCP</p>
-      </div>
-      <div>
-        <div class="img-box">
-          <!-- STEP 8：上传图片至 /images/skills.jpg 并替换路径 -->
-          <img src="assets/workM2.JPG" alt="Skills photo" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 爱好 ===== -->
-  <section id="hobbies" class="section">
-    <div class="card grid reveal">
-      <div>
-        <h2>爱好 Hobbies</h2>
-        <!-- STEP 9：替换你的兴趣爱好描述 -->
-        <p>摄影 / 徒步 / 潜水 / 音乐制作 / 篮球 …</p>
-        <p class="muted">可写一段与你职业互补的人格化简介。</p>
-      </div>
-      <div>
-        <div class="img-box">
-          <!-- STEP 10：上传图片至 /images/hobbies.jpg 并替换路径 -->
-          <img src="assets/Hydro1.JPG" alt="Hobbies photo" />
-        </div>
-      </div>
-    </div>
+  <!-- Hobbies Section -->
+  <section id="hobbies">
+    <h2 class="section-title">Hobbies</h2>
+    <p>A glimpse of my hobbies and passions.</p>
+    <a href="hobbies.html" class="detail-btn">See More</a>
   </section>
 
   <script>
-    // ===== 滚动到视频区外自动暂停，回到视频区自动播放 =====
-    const videoEl = document.getElementById('introVideo');
-    const videoSec = document.getElementById('video-section');
-    const ioVideo = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ e.isIntersecting ? videoEl.play() : videoEl.pause(); })
-    },{threshold:[0.25]});
-    ioVideo.observe(videoSec);
+    const video = document.getElementById("bgVideo");
+    const muteBtn = document.getElementById("muteBtn");
 
-    // ===== 导航激活状态（滚动高亮） =====
-    const links = Array.from(document.querySelectorAll('header .nav a'));
-    const secs = Array.from(document.querySelectorAll('section[id]')).filter(s=>s.id!=='video-section');
-    const map = new Map(secs.map(s=>[s.id, document.querySelector(`header .nav a[href="#${s.id}"]`)]));
+    // Toggle mute/unmute
+    muteBtn.addEventListener("click", () => {
+      video.muted = !video.muted;
+      muteBtn.textContent = video.muted ? "Unmute" : "Mute";
+    });
 
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        const id = e.target.id;
-        const link = map.get(id);
-        if(!link) return;
-        if(e.isIntersecting){
-          links.forEach(a=>a.classList.remove('active'));
-          link.classList.add('active');
-        }
-      })
-    },{threshold:.6});
-
-    secs.forEach(s=>io.observe(s));
-
-    // ===== 内容进场动画 =====
-    const reveals = document.querySelectorAll('.reveal');
-    const ioReveal = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show') })
-    },{threshold:.2});
-    reveals.forEach(el=>ioReveal.observe(el));
+    // Pause video and hide button on scroll
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        video.pause();
+        muteBtn.style.display = "none";
+      } else {
+        video.play();
+        muteBtn.style.display = "block";
+      }
+    });
   </script>
 </body>
 </html>
-
