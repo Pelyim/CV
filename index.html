@@ -26,6 +26,22 @@
     transition: filter 0.2s;
   }
 
+  /* 音量按钮 */
+  #volume-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 20;
+  }
+
   /* 导航 */
   header {
     position: fixed;
@@ -45,7 +61,7 @@
   nav button {
     margin-left: 15px;
     background: transparent;
-    border: none; /* 去掉边框 */
+    border: none;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -98,28 +114,31 @@
   .photo-grid img:hover {
     transform: scale(1.05);
   }
-
 </style>
 </head>
 <body>
 
+<!-- 视频放在最前 -->
 <video id="bg-video" autoplay muted loop>
-  <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
+  <source src=https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+<!-- 音量按钮 -->
+<button id="volume-btn">🔇</button>
 
 <header>
   <div>Yi Jiong</div>
   <nav>
     <button data-target="education">Education</button>
     <button data-target="work">Work</button>
-    <button data-target="Others">Hobbies</button>
+    <button data-target="hobbies">Hobbies</button>
   </nav>
 </header>
 
 <!-- 首页：个人简介 -->
 <section id="about">
-  <img src="assets/Face2.JPG" class="profile-photo" alt="Profile Photo">
+  <img src="assets/Face2.JPG." class="profile-photo" alt="Profile Photo">
   <div class="content">
     <h1>About Me</h1>
     <p>This is my personal introduction...</p>
@@ -132,7 +151,7 @@
     <h2>Education</h2>
     <p>Short introduction of schools...</p>
     <div class="photo-grid">
-      <img src="assests/CUG.jpg" alt="School 1" data-description="School 1 Description">
+      <img src="school1.jpg" alt="School 1" data-description="School 1 Description">
       <img src="school2.jpg" alt="School 2" data-description="School 2 Description">
       <img src="school3.jpg" alt="School 3" data-description="School 3 Description">
     </div>
@@ -173,6 +192,7 @@
 <script>
   const video = document.getElementById('bg-video');
   const sections = document.querySelectorAll('section');
+  const volumeBtn = document.getElementById('volume-btn');
 
   // 滚动触发视频模糊和内容渐显
   window.addEventListener('scroll', () => {
@@ -208,6 +228,17 @@
       descP.textContent = img.dataset.description;
       descP.scrollIntoView({behavior: "smooth"});
     });
+  });
+
+  // 音量按钮功能
+  volumeBtn.addEventListener('click', () => {
+    if(video.muted){
+      video.muted = false;
+      volumeBtn.textContent = "🔊";
+    } else {
+      video.muted = true;
+      volumeBtn.textContent = "🔇";
+    }
   });
 </script>
 
