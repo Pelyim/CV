@@ -1,136 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      scroll-behavior: smooth;
-    }
-    section {
-      min-height: 100vh;
-      padding: 60px;
-    }
-    video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-    .mute-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 10;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255,255,255,0.9);
-      padding: 10px;
-      text-align: center;
-      z-index: 5;
-    }
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-    }
-    .section-title {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    .detail-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 15px;
-      background: #007BFF;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yi Jiong Portfolio</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+    background: #000;
+    color: #fff;
+  }
+
+  /* --- Navigation --- */
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+  }
+
+  header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  nav button {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  nav button:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  /* --- Sections --- */
+  section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: none;
+    transition: opacity 0.5s ease;
+  }
+  section.active {
+    display: block;
+  }
+
+  /* --- Video Section --- */
+  #video-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #video-section video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  #mute-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  /* --- Background blur --- */
+  .blur {
+    filter: blur(8px);
+    transition: filter 0.5s ease;
+  }
+
+  /* --- Intro Section --- */
+  #intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px;
+    background: #111;
+  }
+  #intro img {
+    width: 300px;
+    height: auto;
+  }
+
+  /* --- Category Buttons and Photo Links --- */
+  .category {
+    margin: 40px 20px;
+    text-align: center;
+  }
+  .category button, .category img {
+    margin-top: 15px;
+    cursor: pointer;
+  }
+  .category img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    transition: transform 0.3s;
+  }
+  .category img:hover {
+    transform: scale(1.05);
+  }
+
+  /* --- Detail Sections --- */
+  .detail {
+    padding: 40px;
+    background: #222;
+  }
+  .detail h3 {
+    margin-top: 20px;
+  }
+  .detail img {
+    width: 100px;
+    height: auto;
+    display: block;
+  }
+
+</style>
 </head>
 <body>
 
-  <!-- Background video -->
-  <video id="bgVideo" autoplay muted playsinline>
-    <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
-  </video>
-
-  <!-- Mute/Unmute Button -->
-  <button id="muteBtn" class="mute-btn">Unmute</button>
-
-  <!-- Navigation -->
+<header>
+  <div class="logo">Yi Jiong</div>
   <nav>
-    <a href="#education">Education</a>
-    <a href="#work">Work</a>
-    <a href="#skills">Skills</a>
-    <a href="#hobbies">Hobbies</a>
+    <button onclick="showSection('video-section')">Home</button>
+    <button onclick="showSection('education')">Education</button>
+    <button onclick="showSection('work')">Work</button>
+    <button onclick="showSection('hobbies')">Hobbies</button>
   </nav>
+</header>
 
-  <!-- Education Section -->
-  <section id="education">
-    <h2 class="section-title">Education</h2>
-    <p>Brief overview of my education background.</p>
-    <a href="education.html" class="detail-btn">See More</a>
-  </section>
+<!-- --- Video Section --- -->
+<section id="video-section" class="active">
+  <video autoplay muted loop id="bg-video">
+    <source src="your-video.mp4" type="video/mp4">
+  </video>
+  <button id="mute-btn">Unmute</button>
+</section>
 
-  <!-- Work Section -->
-  <section id="work">
-    <h2 class="section-title">Work Experience</h2>
-    <p>Summary of my professional experience.</p>
-    <a href="work.html" class="detail-btn">See More</a>
-  </section>
+<!-- --- Intro Section --- -->
+<section id="intro">
+  <img src="portrait.jpg" alt="Yi Jiong">
+  <div>
+    <h1>Yi Jiong</h1>
+    <p>This is a brief introduction. You can scroll down to see education, work experience, and hobbies.</p>
+  </div>
+</section>
 
-  <!-- Skills Section -->
-  <section id="skills">
-    <h2 class="section-title">Skills</h2>
-    <p>List of my professional skills.</p>
-  </section>
+<!-- --- Education Section --- -->
+<section id="education" class="category">
+  <h2>Education</h2>
+  <button onclick="showDetail('edu-detail')">More Info</button>
+  <img src="school.jpg" onclick="showDetail('edu-detail')" alt="Education Image">
 
-  <!-- Hobbies Section -->
-  <section id="hobbies">
-    <h2 class="section-title">Hobbies</h2>
-    <p>A glimpse of my hobbies and passions.</p>
-    <a href="hobbies.html" class="detail-btn">See More</a>
-  </section>
+  <div id="edu-detail" class="detail" style="display:none;">
+    <h3>School 1</h3>
+    <img src="school1-logo.png" alt="School 1">
+    <p>School 1 description...</p>
+    <h3>School 2</h3>
+    <img src="school2-logo.png" alt="School 2">
+    <p>School 2 description...</p>
+    <h3>School 3</h3>
+    <img src="school3-logo.png" alt="School 3">
+    <p>School 3 description...</p>
+  </div>
+</section>
 
-  <script>
-    const video = document.getElementById("bgVideo");
-    const muteBtn = document.getElementById("muteBtn");
+<!-- --- Work Section --- -->
+<section id="work" class="category">
+  <h2>Work Experience</h2>
+  <button onclick="showDetail('work-detail')">More Info</button>
+  <img src="work.jpg" onclick="showDetail('work-detail')" alt="Work Image">
 
-    // Toggle mute/unmute
-    muteBtn.addEventListener("click", () => {
-      video.muted = !video.muted;
-      muteBtn.textContent = video.muted ? "Unmute" : "Mute";
+  <div id="work-detail" class="detail" style="display:none;">
+    <h3>Company 1</h3>
+    <img src="company1-logo.png" alt="Company 1">
+    <p>Company 1 description...</p>
+    <h3>Company 2</h3>
+    <img src="company2-logo.png" alt="Company 2">
+    <p>Company 2 description...</p>
+    <h3>Company 3</h3>
+    <img src="company3-logo.png" alt="Company 3">
+    <p>Company 3 description...</p>
+  </div>
+</section>
+
+<!-- --- Hobbies Section --- -->
+<section id="hobbies" class="category">
+  <h2>Hobbies</h2>
+  <button onclick="showDetail('hobby-detail')">More Info</button>
+  <img src="hobby.jpg" onclick="showDetail('hobby-detail')" alt="Hobbies Image">
+
+  <div id="hobby-detail" class="detail" style="display:none;">
+    <h3>Hobby 1</h3><img src="hobby1.jpg" alt="Hobby 1"><p>Description...</p>
+    <h3>Hobby 2</h3><img src="hobby2.jpg" alt="Hobby 2"><p>Description...</p>
+    <h3>Hobby 3</h3><img src="hobby3.jpg" alt="Hobby 3"><p>Description...</p>
+    <h3>Hobby 4</h3><img src="hobby4.jpg" alt="Hobby 4"><p>Description...</p>
+    <h3>Hobby 5</h3><img src="hobby5.jpg" alt="Hobby 5"><p>Description...</p>
+  </div>
+</section>
+
+<script>
+  // --- Section Switching ---
+  function showSection(id){
+    document.querySelectorAll('section').forEach(sec => {
+      sec.classList.remove('active');
     });
+    document.getElementById(id).classList.add('active');
 
-    // Pause video and hide button on scroll
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        video.pause();
-        muteBtn.style.display = "none";
-      } else {
-        video.play();
-        muteBtn.style.display = "block";
-      }
-    });
-  </script>
+    // Apply blur when leaving video
+    const videoSection = document.getElementById('video-section');
+    if(id !== 'video-section'){
+      videoSection.classList.add('blur');
+    } else {
+      videoSection.classList.remove('blur');
+    }
+  }
+
+  // --- Detail toggling ---
+  function showDetail(id){
+    const detail = document.getElementById(id);
+    detail.style.display = detail.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // --- Mute button ---
+  const muteBtn = document.getElementById('mute-btn');
+  const video = document.getElementById('bg-video');
+
+  muteBtn.addEventListener('click', ()=>{
+    video.muted = !video.muted;
+    muteBtn.textContent = video.muted ? 'Unmute' : 'Mute';
+  });
+
+  // --- Scroll hide mute button ---
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    muteBtn.style.display = scrollTop > 50 ? 'none' : 'block';
+  });
+</script>
+
 </body>
 </html>
