@@ -10,8 +10,10 @@
     padding: 0;
     font-family: Arial, sans-serif;
     scroll-behavior: smooth;
-    background: #fff;
+    background: #000; /* 页面背景黑色 */
+    color: #fff;       /* 文字白色 */
   }
+
   /* 顶部导航 */
   header {
     position: fixed;
@@ -22,12 +24,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px; /* 导航右侧稍微往左偏移 */
-    background: rgba(255,255,255,0.9);
+    background: rgba(0,0,0,0.8); /* 半透明黑色 */
     z-index: 10;
   }
   header .logo {
     font-weight: bold;
     font-size: 20px;
+    color: #fff; /* logo文字白色 */
   }
   nav button {
     background: none;
@@ -35,7 +38,9 @@
     margin-left: 20px;
     font-size: 16px;
     cursor: pointer;
+    color: #fff; /* 导航按钮白色 */
   }
+
   /* 视频区域 */
   #video-section {
     position: relative;
@@ -55,10 +60,12 @@
     z-index: 5;
     padding: 8px 12px;
     cursor: pointer;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.2); /* 半透明按钮 */
     border: none;
     border-radius: 5px;
+    color: #fff;
   }
+
   /* 个人简介 */
   #about {
     display: flex;
@@ -70,10 +77,12 @@
     width: 300px;
     height: auto;
     margin-right: 40px;
+    border: 2px solid #fff; 
   }
   #about .description {
     max-width: 600px;
   }
+
   /* 分类按钮与照片 */
   .section {
     padding: 60px 40px;
@@ -81,25 +90,30 @@
   }
   .section h2 {
     margin-bottom: 20px;
+    color: #fff;
   }
   .section button {
     margin-bottom: 20px;
     padding: 10px 16px;
     cursor: pointer;
-    background: #eee;
+    background: rgba(255,255,255,0.1);
     border: none;
     border-radius: 5px;
+    color: #fff;
   }
   .section img {
     width: 200px;
     height: auto;
     margin: 10px;
     cursor: pointer;
+    border: 2px solid #fff;
   }
+
   /* 详细内容 */
   .details {
     display: none;
     margin-top: 20px;
+    color: #fff;
   }
   .details.active {
     display: block;
@@ -111,107 +125,107 @@
 <header>
   <div class="logo">Yi Jiong</div>
   <nav>
-    <button onclick="scrollToSection('education')">Education</button>
-    <button onclick="scrollToSection('work')">Work</button>
-    <button onclick="scrollToSection('hobbies')">Hobbies</button>
+    <button onclick="showSection('education')">Education</button>
+    <button onclick="showSection('work')">Work</button>
+    <button onclick="showSection('hobbies')">Hobbies</button>
   </nav>
 </header>
 
 <section id="video-section">
   <video id="bg-video" autoplay muted loop>
     <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
   <button id="unmute-btn" onclick="toggleMute()">Unmute</button>
 </section>
 
 <section id="about">
-  <img src="your-photo.jpg" alt="Portrait">
+  <img src="portrait.jpg" alt="Portrait">
   <div class="description">
-    <h1>About Me</h1>
-    <p>This is my personal introduction. Add your description here.</p>
+    <h2>About Me</h2>
+    <p>Hello! I'm Yi Jiong, a passionate professional with interests in education, work experience, and hobbies.</p>
   </div>
 </section>
 
 <section id="education" class="section">
   <h2>Education</h2>
-  <button onclick="toggleDetails('edu-details')">More Info</button>
+  <button onclick="toggleDetails('edu-details')">Show Details</button>
   <div>
     <img src="school1.jpg" onclick="toggleDetails('edu-details')">
     <img src="school2.jpg" onclick="toggleDetails('edu-details')">
     <img src="school3.jpg" onclick="toggleDetails('edu-details')">
   </div>
   <div id="edu-details" class="details">
-    <p>School 1: Description...</p>
-    <p>School 2: Description...</p>
-    <p>School 3: Description...</p>
+    <h3>School 1</h3>
+    <p>Simple description of School 1</p>
+    <h3>School 2</h3>
+    <p>Simple description of School 2</p>
+    <h3>School 3</h3>
+    <p>Simple description of School 3</p>
   </div>
 </section>
 
 <section id="work" class="section">
   <h2>Work</h2>
-  <button onclick="toggleDetails('work-details')">More Info</button>
+  <button onclick="toggleDetails('work-details')">Show Details</button>
   <div>
     <img src="company1.jpg" onclick="toggleDetails('work-details')">
     <img src="company2.jpg" onclick="toggleDetails('work-details')">
     <img src="company3.jpg" onclick="toggleDetails('work-details')">
   </div>
   <div id="work-details" class="details">
-    <p>Company 1: Description...</p>
-    <p>Company 2: Description...</p>
-    <p>Company 3: Description...</p>
+    <h3>Company 1</h3>
+    <p>Simple description of Company 1</p>
+    <h3>Company 2</h3>
+    <p>Simple description of Company 2</p>
+    <h3>Company 3</h3>
+    <p>Simple description of Company 3</p>
   </div>
 </section>
 
 <section id="hobbies" class="section">
   <h2>Hobbies</h2>
-  <button onclick="toggleDetails('hobby-details')">More Info</button>
+  <button onclick="toggleDetails('hobbies-details')">Show Details</button>
   <div>
-    <img src="hobby1.jpg" onclick="toggleDetails('hobby-details')">
-    <img src="hobby2.jpg" onclick="toggleDetails('hobby-details')">
-    <img src="hobby3.jpg" onclick="toggleDetails('hobby-details')">
-    <img src="hobby4.jpg" onclick="toggleDetails('hobby-details')">
-    <img src="hobby5.jpg" onclick="toggleDetails('hobby-details')">
+    <img src="hobby1.jpg" onclick="toggleDetails('hobbies-details')">
+    <img src="hobby2.jpg" onclick="toggleDetails('hobbies-details')">
+    <img src="hobby3.jpg" onclick="toggleDetails('hobbies-details')">
+    <img src="hobby4.jpg" onclick="toggleDetails('hobbies-details')">
+    <img src="hobby5.jpg" onclick="toggleDetails('hobbies-details')">
   </div>
-  <div id="hobby-details" class="details">
-    <p>Hobby 1: Description...</p>
-    <p>Hobby 2: Description...</p>
-    <p>Hobby 3: Description...</p>
-    <p>Hobby 4: Description...</p>
-    <p>Hobby 5: Description...</p>
+  <div id="hobbies-details" class="details">
+    <h3>Hobby 1</h3><p>Description</p>
+    <h3>Hobby 2</h3><p>Description</p>
+    <h3>Hobby 3</h3><p>Description</p>
+    <h3>Hobby 4</h3><p>Description</p>
+    <h3>Hobby 5</h3><p>Description</p>
   </div>
 </section>
 
 <script>
-  // Unmute button
+  const video = document.getElementById('bg-video');
+  const unmuteBtn = document.getElementById('unmute-btn');
+
   function toggleMute() {
-    const video = document.getElementById('bg-video');
     video.muted = !video.muted;
+    unmuteBtn.textContent = video.muted ? 'Unmute' : 'Mute';
   }
 
-  // Scroll blur effect
-  const video = document.getElementById('bg-video');
+  // 滚动视频模糊效果
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    const maxBlur = 8; // max blur in px
-    const vh = window.innerHeight;
-    if(scrollY <= vh) {
-      const blurValue = (scrollY / vh) * maxBlur;
-      video.style.filter = `blur(${blurValue}px)`;
-    } else {
-      video.style.filter = `blur(8px)`;
-    }
+    const maxBlur = 10; // 最大模糊
+    video.style.filter = `blur(${Math.min(scrollY / 100, maxBlur)}px)`;
   });
 
-  // Scroll to section
-  function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({behavior:'smooth'});
-  }
-
-  // Toggle details
+  // 显示/隐藏详细内容
   function toggleDetails(id) {
     const el = document.getElementById(id);
     el.classList.toggle('active');
+  }
+
+  // 点击导航滚动到对应分类
+  function showSection(id) {
+    document.getElementById(id).scrollIntoView({behavior: 'smooth'});
   }
 </script>
 
