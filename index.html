@@ -283,9 +283,9 @@
       <ul>
         <li><a href="#home-video" aria-label="Go to Home section">Home</a></li>
         <li><a href="#education" aria-label="Go to Education section">Education</a></li>
-        <li><a href="#work" aria-label="Go to Work section">Work</a></li>
-        <li><a href="#skills" aria-label="Go to Skills section">Hobbies</a></li>
-        <li><a href="#others" aria-label="Go to Others section">Hobbies</a></li>
+        <li><a href="#career" aria-label="Go to Work section">Career</a></li>
+        <li><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
+        <li><a href="#others" aria-label="Go to Others section">Others</a></li>
       </ul>
     </nav>
   </header>
@@ -369,7 +369,7 @@
   </section>
 
   <!-- ===== Work Section ===== -->
-  <section id="work">
+  <section id="career">
     <h2>Work Experience</h2>
     <div class="logo-container">
       <img src="assets/HBZY.png" alt="Guangdong Environmental Protection Institute">
@@ -484,6 +484,51 @@
     </div>
   </section>
 
+    <!-- ===== Skills Section ===== -->
+  <section id="others">
+    <h2>Others</h2>
+    <button onclick="toggleDetails('skills-details')" aria-label="Toggle Skills Details">More Details</button>
+    <div id="Skills-details" class="details">
+      <h3>Hobbies Details</h3>
+      <div class="experience-item">
+        <img src="asessts/Tenor2.JPG." alt="Skills 1 Photo">
+        <div>
+          <p><strong>Photography</strong>: Capturing landscapes and urban scenes with a focus on natural lighting.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo2.jpg" alt="Hobby 2 Photo">
+        <div>
+          <p><strong>Hiking</strong>: Exploring trails and mountains, with a goal to hike all major peaks in [your region].</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo3.jpg" alt="Hobby 3 Photo">
+        <div>
+          <p><strong>Coding Projects</strong>: Building personal apps and contributing to open-source projects.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo4.jpg" alt="Hobby 4 Photo">
+        <div>
+          <p><strong>Reading</strong>: Enjoying science fiction and non-fiction books on technology.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo5.jpg" alt="Hobby 5 Photo">
+        <div>
+          <p><strong>Cooking</strong>: Experimenting with international cuisines, especially Asian recipes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo-links">
+      <img src="assets/images/hobby1.jpg" alt="Hobby 1" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby2.jpg" alt="Hobby 2" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby3.jpg" alt="Hobby 3" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby4.jpg" alt="Hobby 4" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby5.jpg" alt="Hobby 5" onclick="toggleDetails('hobbies-details')">
+    </div>
+  </section>
   <script>
     // ===== Unmute Button =====
     const video = document.getElementById('main-video');
