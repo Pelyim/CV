@@ -641,8 +641,7 @@
             photo.style.left = `${randomLeft}px`;
             photo.style.top = `${randomTop}px`;
             photo.style.transform = `rotate(${randomRotation}deg)`;
-
-            photo.style.opacity = 1; // 设置为可见
+            photo.style.zIndex = randomZIndex; 
         });
     });
 </script>
