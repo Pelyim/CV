@@ -308,8 +308,8 @@
   <section id="about-me" class="about-section">
     <img src="assets/Face2_1.JPG" alt="Yi Jiong Portrait" class="portrait">
     <div class="about-text">
-      <h2 class="animate__animated animate__fadeInRight">Hi, It's<b>Yi Jiong</b></h2>
-      <p class="animate__animated animate__fadeInRight"><b>Geophysics Master’s student</b> at Karlsruhe Institute of Technology 
+      <h2 class="js-animate-on-scroll">Hi, It's<b>Yi Jiong</b></h2>
+      <p class="js-animate-on-scroll"><b>Geophysics Master’s student</b> at Karlsruhe Institute of Technology 
         with cross-disciplinary expertise in seismic data processing, 
         geophysical modelling, environmental monitoring and digital marketing. Former <b>Geophysical
         Engineer</b> at Guangdong Environmental Protection Institute, with experience in subsurface modeling
@@ -574,6 +574,32 @@
         behavior: "smooth"
       });
     }
+        document.addEventListener("DOMContentLoaded", function() {
+      const animationObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          // 当目标元素进入视口时
+          if (entry.isIntersecting) {
+            const elementsToAnimate = entry.target.querySelectorAll('.js-animate-on-scroll');
+            elementsToAnimate.forEach(el => {
+              // 为元素添加 Animate.css 的类来触发动画
+              el.classList.add('animate__animated', 'animate__fadeInRight');
+            });
+
+            // 动画触发后，停止观察该元素，以确保动画只播放一次
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        // threshold: 0.1 表示目标元素至少有 10% 进入视口时触发
+        threshold: 0.1
+      });
+
+      // 选择要观察的目标区域
+      const aboutSection = document.getElementById('about-me');
+      if (aboutSection) {
+        animationObserver.observe(aboutSection);
+      }
+    });
   </script>
 </body>
 </html>
