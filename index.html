@@ -26,10 +26,10 @@
       position: fixed;
       top: 0;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1200px; /* Limit width to avoid edge-to-edge */
       left: 50%;
       transform: translateX(-50%);
-      background: transparent;
+      background: transparent; /* Transparent when on video section */
       z-index: 100;
       box-shadow: none;
       transition: background 0.3s, box-shadow 0.3s;
@@ -69,6 +69,10 @@
       align-items: center;
       transition: filter 0.5s ease, opacity 0.5s ease;
     }
+    .video-section.blurred {
+      filter: blur(5px);
+      opacity: 0.7;
+    }
     .main-video {
       position: fixed;
       top: 50%;
@@ -90,7 +94,7 @@
       cursor: pointer;
       background-color: rgba(255,255,255,0.6);
       color: black;
-      border: 1px solid rgba(0,0,0,0.4);
+      border: none;
       border-radius: 4px;
       transition: background-color 0.3s, color 0.3s;
     }
@@ -99,7 +103,28 @@
       color: black
     }
 
-    /* ===== Section Styles ===== */
+    /* ===== About Section ===== */
+    .about-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 50px;
+      gap: 40px;
+      background-color: #f4f4f4;
+    }
+    .portrait {
+      width: 300px;
+      max-width: 40%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .about-text {
+      max-width: 60%;
+    }
+
+    /* ===== Sections (Education / Work / Skills / Others) ===== */
     section {
       padding: 60px 50px;
     }
@@ -134,6 +159,48 @@
       max-height: 2000px;
       padding: 20px;
     }
+    .experience-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .experience-item img {
+      width: 150px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .experience-item p {
+      flex: 1;
+    }
+    .photo-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .photo-links img {
+      width: 150px;
+      max-width: 100%;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+    .photo-links img:hover {
+      transform: scale(1.05);
+    }
+    .logo-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .logo-container img {
+      width: auto;
+      max-width: 100%;
+      height: 80px;
+      border-radius: 8px;
+    }
 
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
@@ -144,8 +211,29 @@
       .main-nav ul {
         gap: 15px;
       }
+      .about-section {
+        flex-direction: row;
+        text-align: left;
+        padding: 40px 20px;
+      }
+      .portrait {
+        max-width: 40%;
+      }
+      .about-text {
+        max-width: 60%;
+      }
+      .photo-links, .logo-container {
+        justify-content: center;
+      }
+      .photo-links img, .logo-container img {
+        width: 100px;
+      }
       section {
         padding: 40px 20px;
+      }
+      .experience-item {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
     @media (max-width: 400px) {
@@ -156,9 +244,17 @@
         flex-direction: column;
         gap: 10px;
       }
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .portrait {
+        max-width: 100%;
+      }
+      .about-text {
+        max-width: 100%;
+      }
     }
-
-    /* ===== Scroll Arrow ===== */
     .scroll-down {
       position: absolute;
       bottom: 100px;
@@ -185,11 +281,11 @@
     <div class="logo">Yi Jiong</div>
     <nav class="main-nav">
       <ul>
-        <li><a href="#home-video">Home</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#career">Career</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#others">Others</a></li>
+        <li><a href="#home-video" aria-label="Go to Home section">Home</a></li>
+        <li><a href="#education" aria-label="Go to Education section">Education</a></li>
+        <li><a href="#career" aria-label="Go to Work section">Career</a></li>
+        <li><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
+        <li><a href="#others" aria-label="Go to Others section">Others</a></li>
       </ul>
     </nav>
   </header>
@@ -200,7 +296,7 @@
       <source src="https://github.com/Pelyim/CV/releases/download/NW/NW.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <button id="unmute-btn">Unmute</button>
+    <button id="unmute-btn" aria-label="Toggle video mute">Unmute</button>
     <div class="scroll-down" onclick="scrollToNext()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M12 16l-6-6h12z"/>
@@ -208,52 +304,260 @@
     </div>
   </section>
 
-  <!-- ===== Education Section ===== -->
-  <section id="education">
-    <h2>Education</h2>
-    <button onclick="toggleDetails('education-details')">More Details</button>
-    <div id="education-details" class="details">
-      <p>Education details here...</p>
+  <!-- ===== About Me Section ===== -->
+  <section id="about-me" class="about-section">
+    <img src="assets/Face2_1.JPG" alt="Yi Jiong Portrait" class="portrait">
+    <div class="about-text">
+      <h2 class="animate__animated animate__fadeInRight">Hi, It's<b>Yi Jiong</b></h2>
+      <p class="animate__animated animate__fadeInRight"><b>Geophysics Master’s student</b> at Karlsruhe Institute of Technology 
+        with cross-disciplinary expertise in seismic data processing, 
+        geophysical modelling, environmental monitoring and digital marketing. Former <b>Geophysical
+        Engineer</b> at Guangdong Environmental Protection Institute, with experience in subsurface modeling
+        , geodetic monitoring and sustainability assessment. Published <b>Author</b> of <i>an art-science 
+        installation on carbon neutrality.</i> Award-winning debater, tenor vocalist and director.
+        Passionate about bridging <i>science, creativity, business and global collaboration </i>to create sustainable 
+        solutions.
+        </p>
     </div>
   </section>
 
-  <!-- ===== Career Section ===== -->
+  <!-- ===== Education Section ===== -->
+  <section id="education">
+    <h2>Education</h2>
+    <div class="logo-container">
+      <img src="assets/KIT Logo.png" alt="KIT">
+      <img src="assets/ENEB.jpg" alt="UI">
+      <img src="assets/CUG.jpg" alt="CUG">
+    </div>
+    <button onclick="toggleDetails('education-details')" aria-label="Toggle Education Details">More Details</button>
+    <div id="education-details" class="details">
+      <h3>Education Details</h3>
+      <div class="experience-item">
+        
+        <div>
+          <p><strong>KIT</strong>- Karlsruhe Institute of Technology | Master of Geophysics | Apr 2025 - Now</p>
+          <p>Coursework spans seismic processing/modeling, inversion & tomography, and seismic wave theory; 
+                  emphasises quantitative analysis and computational methods.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        
+        <div>
+          <p><strong>Universidad Internacional Isabel I de Castilla</strong> | Master of Digital Marketing & 
+                  E-Commerce and MBA(diploma) | Jan 2024 - Oct 2024</p>
+          <p>Covered go-to-market, analytics, and strategy—complementing 
+                  technical background with commercial and managerial skills.<br>Core courses: 
+        Neuro-linguistic programming, Financial management, Community management, Web 
+            positioning. <br>Average Score: 78.1 - Digital Marketing | 82.5 - MBA </p>
+        </div>
+      </div>
+      <div class="experience-item">
+        
+        <div>
+          <p><strong>China University of Geosciences</strong> | Bachelor of Geophysics
+                  | Sep 2019 - Jun 2023</p>
+          <p>Built fundamentals in seismology, geophysical data analysis, geomagnetism, gravity, and 
+                  computational modelling; both well-equipped in research and applications.<br>
+          Average Score: 84.1</p>
+          <img src="assets/SKL1.PNG" alt="School 1 Campus" onclick="toggleDetails('education-details')">
+          <img src="assets/images/school2.jpg" alt="School 2 Campus" onclick="toggleDetails('education-details')">
+          <img src="assets/images/school3.jpg" alt="School 3 Campus" onclick="toggleDetails('education-details')">
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== Work Section ===== -->
   <section id="career">
-    <h2>Career</h2>
-    <button onclick="toggleDetails('career-details')">More Details</button>
-    <div id="career-details" class="details">
-      <p>Career details here...</p>
+    <h2>Work Experience</h2>
+    <div class="logo-container">
+      <img src="assets/HBZY.png" alt="Guangdong Environmental Protection Institute">
+      <img src="assets/ZTF_Logo.jpg" alt="Chow Tai Fook">
+      <img src="assets/qxj.png" alt="Luzhou Meteorological Bureau">
+    </div>
+    <button onclick="toggleDetails('work-details')" aria-label="Toggle Work Details">More Details</button>
+    <div id="work-details" class="details">
+      <h3>Work Experience Details</h3>
+      <div class="experience-item">
+       
+        <div>
+          <p><strong>Guangdong Environmental Protection Institute</strong> | Geophysical Engineer | 
+                  Jul 2023 - Apr 2025</p>
+         <ul>
+                 <li>Built subsurface models by integrating seismic and 
+                         geomagnetic datasets; validated interpretations against
+                         geologic constraints.</li>
+                 <li>Contributed to a geodetic monitoring platform for mines 
+                         (data ingestion, QC, and reporting workflows) to track 
+                         deformation and risk.</li>
+                 <li>Supported life-cycle assessment (LCA)
+                         studies to inform sustainability strategies and 
+                         compliance documentation.</li>
+                 <li>Applied Python/MATLAB and seismic tools (e.g., GMT, Reveal, TauP) 
+                         across standard processing steps and visualization.</li>
+         </ul>
+      
+        </div>
+      </div>
+      <div class="experience-item">
+        
+        <div>
+          <p><strong>Chow Tai Fook Jewelry</strong> | Intern | Jan 2023 - Apr 2023</p>
+         <ul>
+                 <li>Performed customer data analysis and 
+                         segmentation to inform sub-brand positioning and product messaging.</li>
+                 <li>Built preliminary customer 
+                         persona models to guide creative direction and channel selection.</li>
+                 <li>Supported advertising asset production and delivery for digital placements
+                         , coordinating with design and media teams.</li>
+         </ul>
+        </div>
+      </div>
+      <div class="experience-item">
+        
+        <div>
+          <p><strong>Luzhou Meteorological Bureau</strong> | Intern | Jun 2020 - Feb 2022</p>
+         <ul>
+                 <li>Processed and interpreted EM data to 
+                         support local weather and environmental analytics.</li>
+                 <li>Assisted in UI/feature planning and basic
+                         development tasks for a weather application prototype.</li>
+          
+         </ul>
+          <img src="assets/Hydro1.JPG" alt="Work Experience 1 Photo">
+          <img src="assets/LV2.JPG" alt="Company 1 Office" onclick="toggleDetails('work-details')">
+          <img src="assets/Propagator.jpg" alt="Company 2 Office" onclick="toggleDetails('work-details')">
+          <img src="assets/CTF1.JPG" alt="Company 3 Office" onclick="toggleDetails('work-details')">
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-links">
+      
     </div>
   </section>
 
   <!-- ===== Skills Section ===== -->
   <section id="skills">
     <h2>Skills</h2>
-    <button onclick="toggleDetails('skills-details')">More Details</button>
-    <div id="skills-details" class="details">
-      <p>Skills details here...</p>
+    <button onclick="toggleDetails('skills-details')" aria-label="Toggle Skills Details">More Details</button>
+    <div id="Skills-details" class="details">
+      <h3>Hobbies Details</h3>
+      <div class="experience-item">
+        <img src="asessts/Tenor2.JPG." alt="Skills 1 Photo">
+        <div>
+          <p><strong>Photography</strong>: Capturing landscapes and urban scenes with a focus on natural lighting.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo2.jpg" alt="Hobby 2 Photo">
+        <div>
+          <p><strong>Hiking</strong>: Exploring trails and mountains, with a goal to hike all major peaks in [your region].</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo3.jpg" alt="Hobby 3 Photo">
+        <div>
+          <p><strong>Coding Projects</strong>: Building personal apps and contributing to open-source projects.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo4.jpg" alt="Hobby 4 Photo">
+        <div>
+          <p><strong>Reading</strong>: Enjoying science fiction and non-fiction books on technology.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo5.jpg" alt="Hobby 5 Photo">
+        <div>
+          <p><strong>Cooking</strong>: Experimenting with international cuisines, especially Asian recipes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo-links">
+      <img src="assets/images/hobby1.jpg" alt="Hobby 1" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby2.jpg" alt="Hobby 2" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby3.jpg" alt="Hobby 3" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby4.jpg" alt="Hobby 4" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby5.jpg" alt="Hobby 5" onclick="toggleDetails('hobbies-details')">
     </div>
   </section>
 
-  <!-- ===== Others Section ===== -->
+    <!-- ===== Skills Section ===== -->
   <section id="others">
     <h2>Others</h2>
-    <button onclick="toggleDetails('others-details')">More Details</button>
-    <div id="others-details" class="details">
-      <p>Others details here...</p>
+    <button onclick="toggleDetails('skills-details')" aria-label="Toggle Skills Details">More Details</button>
+    <div id="Skills-details" class="details">
+      <h3>Hobbies Details</h3>
+      <div class="experience-item">
+        <img src="asessts/Tenor2.JPG." alt="Skills 1 Photo">
+        <div>
+          <p><strong>Photography</strong>: Capturing landscapes and urban scenes with a focus on natural lighting.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo2.jpg" alt="Hobby 2 Photo">
+        <div>
+          <p><strong>Hiking</strong>: Exploring trails and mountains, with a goal to hike all major peaks in [your region].</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo3.jpg" alt="Hobby 3 Photo">
+        <div>
+          <p><strong>Coding Projects</strong>: Building personal apps and contributing to open-source projects.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo4.jpg" alt="Hobby 4 Photo">
+        <div>
+          <p><strong>Reading</strong>: Enjoying science fiction and non-fiction books on technology.</p>
+        </div>
+      </div>
+      <div class="experience-item">
+        <img src="assets/images/hobby-photo5.jpg" alt="Hobby 5 Photo">
+        <div>
+          <p><strong>Cooking</strong>: Experimenting with international cuisines, especially Asian recipes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo-links">
+      <img src="assets/images/hobby1.jpg" alt="Hobby 1" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby2.jpg" alt="Hobby 2" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby3.jpg" alt="Hobby 3" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby4.jpg" alt="Hobby 4" onclick="toggleDetails('hobbies-details')">
+      <img src="assets/images/hobby5.jpg" alt="Hobby 5" onclick="toggleDetails('hobbies-details')">
     </div>
   </section>
-
   <script>
     // ===== Unmute Button =====
     const video = document.getElementById('main-video');
     const unmuteBtn = document.getElementById('unmute-btn');
     unmuteBtn.addEventListener('click', () => {
       video.muted = !video.muted;
-      if (!video.muted) {
-        video.play();
-      }
       unmuteBtn.textContent = video.muted ? 'Unmute' : 'Mute';
+    });
+
+    // ===== Blur, Opacity, and Header Background on Scroll =====
+    const videoSection = document.getElementById('home-video');
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      const videoRect = videoSection.getBoundingClientRect();
+      const isVisible = videoRect.top < window.innerHeight && videoRect.bottom >= 0;
+      const scrollY = window.scrollY;
+      const maxScroll = window.innerHeight; // Full viewport height for max effect
+
+      // Toggle header background
+      header.classList.toggle('scrolled', !isVisible);
+
+      // Calculate blur and opacity based on scroll distance
+      const blurValue = Math.min(scrollY / maxScroll * 5, 5); // 0 to 5px blur
+      const opacityValue = Math.max(1 - scrollY / maxScroll * 0.3, 0.7); // 1 to 0.7 opacity
+      videoSection.style.filter = isVisible ? 'none' : `blur(${blurValue}px)`;
+      videoSection.style.opacity = isVisible ? 1 : opacityValue;
+
+      // Hide unmute button when scrolled past video
+      unmuteBtn.style.display = scrollY > window.innerHeight ? 'none' : 'block';
     });
 
     // ===== Toggle Details =====
@@ -264,8 +568,6 @@
       const button = details.previousElementSibling;
       button.textContent = isActive ? 'More Details' : 'Hide Details';
     }
-
-    // ===== Scroll Next =====
     function scrollToNext(){
       window.scrollTo({
         top: window.innerHeight, 
