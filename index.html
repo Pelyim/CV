@@ -119,6 +119,11 @@
       height: auto;
       object-fit: cover;
       border-radius: 8px;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .portrait.visible {
+      opacity:1;
     }
     .about-text {
       max-width: 60%;
@@ -306,7 +311,7 @@
 
   <!-- ===== About Me Section ===== -->
   <section id="about-me" class="about-section">
-    <img src="assets/Face2_1.JPG" alt="Yi Jiong Portrait" class="portrait">
+    <img src="assets/Face2_1.JPG" alt="Yi Jiong Portrait" class="portrait js-fade-in">
     <div class="about-text">
       <h2 class="js-animate-on-scroll">Hi, It's<b>Yi Jiong</b></h2>
       <p class="js-animate-on-scroll"><b>Geophysics Master’s student</b> at Karlsruhe Institute of Technology 
@@ -568,6 +573,29 @@
       const button = details.previousElementSibling;
       button.textContent = isActive ? 'More Details' : 'Hide Details';
     }
+
+    //=====图片渐显====//
+    document.addEventListener("DOMContentLoaded", function() {
+      const fadeInObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 当元素进入视口，添加 'visible' 类
+            entry.target.classList.add('visible');
+            // 动画触发后，停止观察
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2 // 元素可见 20% 时触发
+      });
+
+      // 寻找所有需要渐显的元素并开始观察
+      const elementsToFadeIn = document.querySelectorAll('.js-fade-in');
+      elementsToFadeIn.forEach(el => {
+        fadeInObserver.observe(el);
+      });
+    });
+    // =====文字飞入======//
     function scrollToNext(){
       window.scrollTo({
         top: window.innerHeight, 
