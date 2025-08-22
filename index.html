@@ -64,11 +64,13 @@
     .site-header .logo {
       font-size: 28px; /* 调整字体大小，使其更醒目 */
       font-weight: bold;
+      display: flex;
+  justify-content: center; /* 确保文字在父容器中居中 */
+  align-items: center;
     }
     /* 为彩虹文字添加样式 */
     .rainbow-text {
     /* 关键：使用线性渐变作为背景 */
-      display:inline-block;
       background-image: linear-gradient(
         to right,
           #ff0000, /* 红 */
