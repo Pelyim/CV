@@ -370,45 +370,71 @@
 				fill: white;
 			}
 			/* ----- Contact Section ----- */
-		.contact-section {
-			text-align: center;
-			padding: 50px 20px;
-			background-color: #333;
-			color: #fff;
-		}
+.contact-section {
+	display: flex; /* 启用 Flexbox 布局 */
+	justify-content: space-between; /* 使内容左右两端对齐 */
+	align-items: center; /* 垂直居中对齐所有项目 */
+	padding: 30px 50px; /* 减小上下内边距以缩小区域 */
+	background-color: #333;
+	color: #fff;
+	/* 响应式调整 */
+	flex-wrap: wrap; /* 允许在小屏幕上换行 */
+}
 
-		.contact-section h2 {
-			color: #fff;
-			margin-bottom: 20px;
-		}
+/* 包含联系信息的区域 */
+.contact-content {
+	display: flex; /* 内部也使用 Flexbox */
+	align-items: center; /* 垂直居中对齐 */
+	flex-grow: 1; /* 允许这个区域占用更多空间 */
+}
 
-		.contact-section p {
-			margin-bottom: 30px;
-		}
+/* 联系方式的链接图标和文字 */
+.contact-links {
+	display: flex; /* 让图标和文字并排显示 */
+	gap: 20px; /* 增加图标之间的间距 */
+}
 
-		.contact-links a {
-			color: #fff;
-			text-decoration: none;
-			font-size: 1.2em;
-			margin: 0 15px;
-			transition: color 0.3s;
-		}
+.contact-links a {
+	color: #fff;
+	text-decoration: none;
+	transition: color 0.3s;
+	display: flex; /* 让图标和文本垂直排列 */
+	flex-direction: column;
+	align-items: center;
+}
 
-		.contact-links a:hover {
-			color: #b3d1ff;
-		}
+.contact-links a:hover {
+	color: #b3d1ff;
+}
 
-		.contact-links .icon {
-			font-size: 2em;
-			/* Larger icons */
-			display: block;
-			margin-bottom: 5px;
-		}
+.contact-links .icon {
+	font-size: 2em; /* 保持图标大小不变 */
+	margin-bottom: 5px; /* 图标下方留出一点空间 */
+}
 
-		.contact-links span {
-			display: block;
-			font-size: 0.8em;
-		}
+/* 底部版权信息 */
+.contact-section p {
+	margin: 0;
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+/* 响应式设计：在小屏幕上，内容改为上下排列 */
+@media (max-width: 768px) {
+	.contact-section {
+		flex-direction: column; /* 在小屏幕上改为垂直排列 */
+		text-align: center;
+	}
+
+	.contact-content {
+		flex-direction: column;
+		margin-bottom: 20px;
+	}
+
+	.contact-links {
+		justify-content: center;
+	}
+}
 		</style>
 	</head>
 	<body>
