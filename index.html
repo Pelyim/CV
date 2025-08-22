@@ -390,7 +390,9 @@
 .contact-content {
 	display: flex; /* 内部也使用 Flexbox */
 	align-items: center; /* 垂直居中对齐 */
-	flex-grow: 1; /* 允许这个区域占用更多空间 */
+	flex-grow: 1;
+	position: relative;
+	z-zone: 1000;/* 允许这个区域占用更多空间 */
 }
 
 /* 联系方式的链接图标和文字 */
@@ -811,7 +813,7 @@
 		</script>
 		<footer class="contact-section">
 		<div class="contact-content">
-			<h2>Contact</h2>
+			<p>Contact</p>
 			
 			<div class="contact-links">
 				<a href="https://www.linkedin.com/in/yi-jiong-57687b360" target="_blank" aria-label="LinkedIn">
