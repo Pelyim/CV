@@ -370,17 +370,20 @@
 				fill: white;
 			}
 			/* ----- Contact Section ----- */
+/* ----- Contact Section ----- */
 .contact-section {
-	display: flex; /* 启用 Flexbox 布局 */
-	justify-content: space-between; /* 使内容左右两端对齐 */
-	align-items: center; /* 垂直居中对齐所有项目 */
-	padding: 30px 50px; /* 减小上下内边距以缩小区域 */
-	background-color: #333;
-	color: #fff;
-	/* 响应式调整 */
-	flex-wrap: wrap; /* 允许在小屏幕上换行 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    
+    /* 核心修改: 使用渐变背景 */
+    background-image: linear-gradient(to bottom, rgba(51, 51, 51, 0), rgba(51, 51, 51, 1));
+    /* 将原有的 background-color: #333; 替换或删除 */
+    
+    color: #fff;
+    flex-wrap: wrap;
 }
-
 /* 包含联系信息的区域 */
 .contact-content {
 	display: flex; /* 内部也使用 Flexbox */
@@ -408,14 +411,14 @@
 }
 
 .contact-links .icon {
-	font-size: 2em; /* 保持图标大小不变 */
-	margin-bottom: 5px; /* 图标下方留出一点空间 */
+	font-size: 1em; /* 保持图标大小不变 */
+	margin-bottom: 3px; /* 图标下方留出一点空间 */
 }
 
 /* 底部版权信息 */
 .contact-section p {
 	margin: 0;
-	font-size: 0.9em;
+	font-size: 0.6em;
 	color: rgba(255, 255, 255, 0.7);
 }
 
