@@ -64,40 +64,39 @@
     .site-header .logo {
       font-size: 28px; /* 调整字体大小，使其更醒目 */
       font-weight: bold;
-      
     }
     /* 为彩虹文字添加样式 */
     .rainbow-text {
     /* 关键：使用线性渐变作为背景 */
       background-image: linear-gradient(
-    to right,
-    #ff0000, /* 红 */
-    #ff7f00, /* 橙 */
-    #ffff00, /* 黄 */
-    #00ff00, /* 绿 */
-    #0000ff, /* 蓝 */
-    #4b0082, /* 靛 */
-    #9400d3  /* 紫 */
+        to right,
+          #ff0000, /* 红 */
+          #ff7f00, /* 橙 */
+          #ffff00, /* 黄 */
+          #00ff00, /* 绿 */
+          #0000ff, /* 蓝 */
+          #4b0082, /* 靛 */
+          #9400d3  /* 紫 */
     );
   /* 关键：将背景裁剪为文字的形状 */
-  background-clip: text;
-  -webkit-background-clip: text; /* 兼容性处理，适用于 Safari 和旧版 Chrome */
+      background-clip: text;
+      -webkit-background-clip: text; /* 兼容性处理，适用于 Safari 和旧版 Chrome */
   
   /* 关键：将文字颜色设置为透明，以便背景可见 */
-  color: transparent;
+      color: transparent;
 
   /* 设置背景的大小，使其能够移动 */
-  background-size: 200% auto;
+      background-size: 200% auto;
   
   /* 添加动画 */
-  animation: rainbow-animation 4s linear infinite;
-}
+      animation: rainbow-animation 4s linear infinite;
+    }
 
 /* 动画效果：移动背景位置，让彩虹色流动起来 */
-@keyframes rainbow-animation {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
+    @keyframes rainbow-animation {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
     .main-nav ul {
       display: flex;
       gap: 30px;
