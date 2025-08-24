@@ -792,8 +792,11 @@
 				const details = document.getElementById(id);
 				const isActive = details.classList.contains('active');
 				details.classList.toggle('active');
-				const button = details.previousElementSibling;
-				button.textContent = isActive ? 'More Details' : 'Hide Details';
+				const button = document.querySelector(button[onclick*="${id}"]`);
+	if(button){
+ button.textContent = isActive? 'More Details':'Hide Details';
+ }
+				
 			}
 
 			//=====图片渐显====//
